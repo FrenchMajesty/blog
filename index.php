@@ -18,7 +18,7 @@ $view->sitelink = $sitelink;
 $router->get('/', function() use (&$view) {
 
     $view->title = 'Home';
-    $view->welcome = 'Welcome! Homepage of ' . $view->sitename;
+    $view->welcome = 'Welcome to the blog: ' . $view->sitename;
 
     // Finalize page
     $view->content = $view->render('home.php');
@@ -38,65 +38,26 @@ $router->get('/about',  function() use (&$view) {
 });
 
 
-$router->get('/staff',  function() use (&$view) {
+$router->get('/gallery',  function() use (&$view) {
 
-    $view->title = 'Church staff';
-
-
-    // Finalize page
-    $view->content = $view->render('staff.php');
-    echo $view->render('layout.php');
-});
-
-$router->get('/about',  function() use (&$view) {
-
-    $view->title = 'About';
+    $view->title = 'Gallery';
 
 
     // Finalize page
-    $view->content = $view->render('about.php');
+    $view->content = $view->render('gallery.php');
     echo $view->render('layout.php');
 });
 
-$router->get('/wall',  function() use (&$view) {
+$router->get('/article',  function() use (&$view) {
 
-    $view->title = 'Prayer wall';
+    $view->title = 'View a product/article';
 
 
     // Finalize page
-    $view->content = $view->render('wall.php');
+    $view->content = $view->render('article.php');
     echo $view->render('layout.php');
 });
 
-$router->get('/contact',  function() use (&$view) {
-
-    $view->title = 'Contact Us';
-
-
-    // Finalize page
-    $view->content = $view->render('contact.php');
-    echo $view->render('layout.php');
-});
-
-$router->get('/sermons',  function() use (&$view) {
-
-    $view->title = 'Sermons';
-
-
-    // Finalize page
-    $view->content = $view->render('sermons.php');
-    echo $view->render('layout.php');
-});
-
-$router->get('/donations',  function() use (&$view) {
-
-    $view->title = 'Donate';
-
-
-    // Finalize page
-    $view->content = $view->render('about.php');
-    echo $view->render('layout.php');
-});
 
 */
 

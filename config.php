@@ -3,13 +3,13 @@
 ///
 /// 2017 Copyright All rights reserved.
 
-$sitename = "Spirit of Christ Church";
+$sitename = "Verdi's Fashion Blog";
 $sitelink = "http://verdiks-macbook-air-2.local/church";
 $dbConfig = [
     "host" => "localhost",
     "username" => "root",
     "password" => "",
-    "dbname" => "church",
+    "dbname" => "blog",
 ];
 
 spl_autoload_register(function ($classname) {
