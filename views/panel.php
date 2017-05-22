@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="<?php echo $sitelink; ?>/static/images/favicon.ico">
-<title><?php echo $sitename . ' - ' . $pagename ?></title>
+<title><?php echo $sitename . ' Admin Panel - ' . $pagename ?></title>
 <!-- Bootstrap core CSS -->
 <link href="<?php echo $sitelink; ?>/static/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome CSS -->
@@ -63,38 +63,31 @@
 					<div class="collapse navbar-collapse" id="main-nav">
 						<ul class="nav navbar-nav">
 							<li>
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dashboard</a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/">Homepage</a></li>
-									<li><a href="<?php echo $sitelink; ?>/gallery">Feed</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/">Homepage</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/stats">Stats</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Portofolio</a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Publications</a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/gallery">Gallery</a></li>
-									<li><a href="gallery-v3.html">Gallery v3</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/feed/edit">Manage publications</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/feed">View Blog Feed</a></li>
 								</ul>
 							</li>
-							<li>
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contact</a>
+                            <li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Gallery</a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/contact">Contact Me</a></li>
-									<li><a href="about-v2.html">-v2</a></li>
-									<li><a href="authors.html">Authors</a></li>
-									<li><a href="author-detail.html">Author Detail</a></li>
-									<li><a href="archive.html">Archive</a></li>
-									<li><a href="contact-v1.html">Contact v1</a></li>
-									<li><a href="contact-v2.html">-v2</a></li>
-									<li><a href="404.html">Not Found</a></li>
-									<li><a href="newsletter.html" target="_blank">Newsletter</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/gallery/edit">Manage Gallery</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/gallery">View Gallery</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About</a>
                                 <ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/about">About Me</a></li>
-									<li><a href="<?php echo $sitelink; ?>/story">My Story</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/contacts">How to find me</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/my-details">My Details</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -116,73 +109,6 @@
 				</div>
 			</div>
 		</footer>
-	</div>
-
-	<!-- Login Modal -->
-	<div class="modal leread-modal fade" id="login-form" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content" id="login-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-					<h4 class="modal-title"><i class="fa fa-unlock-alt"></i>LaRead Sign In</h4>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Email">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password">
-						</div>
-						<div class="linkbox">
-							<a href="#">Forgot password ?</a>
-							<span>No account ? <a href="#" id="register-btn" data-toggle="modal" data-target="#register-form">Sign Up.</a></span>
-							<span class="form-warning"><i class="fa fa-exclamation"></i>Fill the require.</span>
-						</div>
-						<div class="linkbox">
-							<label><input type="checkbox"><span>Remember me</span><i class="fa"></i></label>
-							<button type="button" class="btn btn-golden btn-signin">SIGN IN</button>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<div class="provider">
-						<span>Sign In With</span>
-						<a href="#"><i class="fa fa-facebook"></i></a>
-						<a href="#"><i class="fa fa-twitter"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="modal-content" id="register-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-					<h4 class="modal-title"><i class="fa fa-lock"></i>LaRead Sign Up</h4>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<input class="form-control" placeholder="Name">
-						</div>
-						<div class="form-group">
-							<input class="form-control" placeholder="Username">
-						</div>
-						<div class="form-group">
-							<input class="form-control" placeholder="Email">
-						</div>
-						<div class="form-group">
-							<input class="form-control" type="password" placeholder="Password">
-						</div>
-						<div class="linkbox">
-							<span>Already got account? <a href="#" id="login-btn" data-target="#login-form">Sign In.</a></span>
-						</div>
-						<div class="linkbox">
-							<label><input type="checkbox"><span>Remember me</span><i class="fa"></i></label>
-							<button type="button" class="btn btn-golden btn-signin">SIGN UP</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<!-- Bootstrap core JavaScript

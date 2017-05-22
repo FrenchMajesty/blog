@@ -1,0 +1,5 @@
+Places where I have links and others that could cause trouble:
+
+
+Core\Template:27
+

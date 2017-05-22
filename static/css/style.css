@@ -7589,7 +7589,7 @@ i.roman {
 }
 .leread-modal {
 	background-color: #fff;
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: #f3f3f3;
 }
 .leread-modal.fade .modal-dialog {
 	-webkit-transform: none;
