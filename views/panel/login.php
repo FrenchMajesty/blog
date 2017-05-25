@@ -47,11 +47,12 @@
 						</div>
 						<div class="linkbox">
 							<a href="#">Forgot password ?</a>
-							<span class="form-warning"><i class="fa fa-exclamation"></i>Fill the require.</span>
+							<span id="login-message"><i class="fa fa-exclamation"></i>Fill the require.</span>
 						</div>
+                        <input type="hidden" name="token" value="<?php echo $loginToken; ?>">
 						<div class="linkbox">
 							<label><input type="checkbox"><span>Remember me</span><i class="fa"></i></label>
-							<button type="button" class="btn btn-golden btn-signin">SIGN IN</button>
+							<button type="submit" class="btn btn-golden btn-signin">SIGN IN</button>
 						</div>
 					</form>
 				</div>
@@ -63,12 +64,13 @@
 					</div>
 				</div>
 			</div>
+            <?php if(1 == 2) { ?>
 			<div class="modal-content" id="register-content">
 				<div class="modal-header">
 					<h4 class="modal-title"><i class="fa fa-lock"></i>LaRead Sign Up</h4>
 				</div>
 				<div class="modal-body">
-					<form>
+					<form id="login-form">
 						<div class="form-group">
 							<input class="form-control" placeholder="Name">
 						</div>
@@ -91,5 +93,11 @@
 					</form>
 				</div>
 			</div>
+            <?php } ?>
 		</div>
 	</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => { pageLoaded['login']() } )
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="<?php echo $sitelink; ?>/static/js/custom.js"></script>

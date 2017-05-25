@@ -28,6 +28,126 @@ class User extends Model {
         else if(!is_null($id)) $this->load($id);
     }
 
+    public function create() {
+
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO user(email,password,name,address,picture,occupation,interests,socials,biography)
+                                            VALUES (:email,:password,:name, :address, :picture, :occupation, :interests, :socials, :biography)");
+
+            $stmt->bindparam(":email", $this->email);
+            $stmt->bindparam(":password", $this->password);
+            $stmt->bindparam(":name", $this->fullName);
+            $stmt->bindparam(":address", $this->address);
+            $stmt->bindparam(":picture", $this->picture);
+            $stmt->bindparam(":occupation", $this->occupation);
+            $stmt->bindparam(":interests", implode(",", $this->interests));
+            $stmt->bindparam(":socials", json_encode($this->socialMedias));
+            $stmt->bindparam(":biography", $this->biography);
+
+            $stmt->execute();
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function login($email, $password): bool {
+        try {
+            $stmt = $this->conn->prepare("SELECT id, email, password FROM user WHERE email=:email");
+            $stmt->bindparam(":email", $email);
+            $stmt->execute();
+
+            $user=$stmt->fetch(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() == 1) {
+
+                if(password_verify($password, $user["password"])) {
+                    $_SESSION["user_session"] = $user["id"];
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        }
+    }
+
+    public function logout() {
+        session_destroy();
+        unset($_SESSION["user_session"]);
+    }
+
+    public function isAdmin(): bool {
+        if($this->rank > 1)
+            return true;
+        else
+            return false;
+    }
+
+    public function isLoggedIn(): bool {
+        return isset($_SESSION["user_session"]) ? true : false;
+    }
+
+    public function redirectTo($url) {
+        header("Location: $url");
+    }
+
+    public function lastRecoveryEmail($email) {
+        // get timestamp for last recovery email
+        try {
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function verifyRecoveryToken(string $token) {
+        // verify if token is good
+        try {
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function setEmail(string $email) {
+        $this->email = $email;
+    }
+
+    public function setPassword(string $password) {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public function setName(string $name) {
+        $this->fullName = $name;
+    }
+
+    public function setAddress(string $address) {
+        $this->address = $address;
+    }
+
+    public function setPicture($pic) {
+        $this->picture = $pic;
+    }
+
+    public function setOccupation(string $occupation) {
+        $this->occupation = $occupation;
+    }
+
+    public function setSocials(array $ss) {
+        $this->socialMedias = $ss;
+    }
+
+    public function setInterests(array $interests) {
+        $this->interests = $interests;
+    }
+
+    public function setBiography(string $bio) {
+        $this->biography = $bio;
+    }
+
     public function getID(): int {
         return (int) $this->id;
     }
@@ -79,125 +199,10 @@ class User extends Model {
         }
     }
 
-    public function lastRecoveryEmail($email) {
-        // get timestamp for last recovery email
-        try {
+    public function loadFromSession(): bool {
+        $this->load($_SESSION["user_session"]);
 
-        }catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    public function verifyRecoveryToken(string $token) {
-        // verify if token is good
-        try {
-
-        }catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    public function setEmail(string $email) {
-        $this->email = $email;
-    }
-
-    public function setPassword(string $password) {
-        $this->password = $password; // encrypt password here
-    }
-
-    public function setName(string $name) {
-        $this->fullName = $name;
-    }
-
-    public function setAddress(string $address) {
-        $this->address = $address;
-    }
-
-    public function setPicture($pic) {
-        $this->picture = $pic;
-    }
-
-    public function setOccupation(string $occupation) {
-        $this->occupation = $occupation;
-    }
-
-    public function setSocials(array $ss) {
-        $this->socialMedias = $ss;
-    }
-
-    public function setInterests(array $interests) {
-        $this->interests = $interests;
-    }
-
-    public function setBiography(string $bio) {
-        $this->biography = $bio;
-    }
-
-
-    public function login($email, $password): bool {
-        try {
-            $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE email=:email");
-            $stmt->bindparam(":email", $email);
-            $stmt->execute();
-
-            $user=$stmt->fetch(PDO::FETCH_ASSOC);
-            if($stmt->rowCount() == 1) {
-
-                if($password == $user["password"]) { // encrypt password here
-                    $_SESSION["user_session"] = $user["id"];
-                    return true;
-                }else {
-                    return false;
-                }
-            }
-        }
-        catch(PDOException $e)
-        {
-            echo $e->getMessage();
-        }
-    }
-
-    public function logout() {
-        session_destroy();
-        unset($_SESSION["user_session"]);
-    }
-
-    public function isAdmin(): bool {
-        if($this->rank > 1)
-            return true;
-        else
-            return false;
-    }
-
-    public function isLoggedIn(): bool {
-        return isset($_SESSION["user_session"]) ? true : false;
-    }
-
-    public function redirectTo($url) {
-        header("Location: $url");
-    }
-
-    public function create() {
-
-        try {
-            $stmt = $this->conn->prepare("INSERT INTO user(email,password,name,address,picture,occupation,interests,socials,biography)
-                                            VALUES (:email,:password,:name, :address, :picture, :occupation, :interests, :socials, :biography)");
-
-            $stmt->bindparam(":email", $this->email);
-            $stmt->bindparam(":password", $this->password);
-            $stmt->bindparam(":name", $this->fullName);
-            $stmt->bindparam(":address", $this->address);
-            $stmt->bindparam(":picture", $this->picture);
-            $stmt->bindparam(":occupation", $this->occupation);
-            $stmt->bindparam(":interests", implode(",", $this->interests));
-            $stmt->bindparam(":socials", json_encode($this->socialMedias));
-            $stmt->bindparam(":biography", $this->biography);
-
-            $stmt->execute();
-
-        }catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        return !is_null($this->getID());
     }
 
     private function loadRow($row) {
@@ -217,7 +222,7 @@ class User extends Model {
     private function load($id) {
 
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE id=:id");
+            $stmt = $this->conn->prepare("SELECT * FROM user WHERE id=:id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 

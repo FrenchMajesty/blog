@@ -9,6 +9,7 @@ require_once("./session.php");
 $router = new Core\Router();
 $request = new Core\Request();
 $view = new Core\Template();
+$events = new Core\EventManager();
 
 $user = new Model\User($Database);
 
@@ -62,6 +63,23 @@ $router->get('/story', function() use (&$view) {
     echo $view->render('layout.php');
 });
 
+$router->get('/login', function() use (&$view, &$user) {
+
+    $page = new Views\Panel\Login($view, $user);
+    $page->init();
+});
+
+
+$router->post('/login', function() use (&$user) {
+
+    $controller = new Controller\UserController($user);
+
+    if($controller->login())
+        echo 'true';
+    else
+        echo json_encode($controller->dispatchErrors());
+});
+
 
 
 // ---------------------------
@@ -73,21 +91,19 @@ $router->get('/story', function() use (&$view) {
 // ---------------------------
 
 
+ $router->before('GET|POST', '((panel)/?.*)', function() use (&$view, &$user) {
+        // Logged in Middleware
+
+        if($user->isLoggedIn())
+            $user->loadFromSession();
+        else
+            $user->redirectTo('/blog/login');
+    });
+
 $router->mount('/panel', function() use ($router, &$view, &$user) {
 
 
-    $router->get('/login', function() use (&$view) {
 
-        $page = new Views\Panel\Login($view);
-        $page->init();
-    });
-
-
-    $router->before('GET|POST', '(/?.*)', function() use (&$view, &$user) {
-        // Logged in Middleware
-
-        if(10 > 4) echo "middleware";
-    });
 
     // *** PAGES WHERE LOGIN IS REQUIRED BELOW ***/
 
@@ -179,6 +195,13 @@ $router->mount('/panel', function() use ($router, &$view, &$user) {
         $page->init();
 
         echo $view->render('panel.php');
+    });
+
+
+    $router->get('/logout', function() use (&$user) {
+
+        $user->logout();
+        $user->redirectTo('/blog/');
     });
 
 

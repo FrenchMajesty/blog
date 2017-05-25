@@ -1,11 +1,16 @@
 <?php
 namespace Controller;
 
+use Core\Database;
 use Model\User;
 
 class UserController extends Controller {
 
     private $newUser;
+
+    public function __construct(User $user) {
+
+    }
 
     public function create(): bool {
 
@@ -35,6 +40,31 @@ class UserController extends Controller {
             $this->errors[] = "User cannot be deleted.";
 
         return empty($this->errors) ? $user->delete() : false;
+    }
+
+    public function login(): bool {
+
+        $user = new User(new Database());
+
+        $email = $this->sanitize($_POST["email"]);
+        $password = $this->sanitize($_POST["password"]);
+
+        if(!$this->verifyFormToken('login'))
+            $this->errors[] = "Wrong form submitted, please try again.";
+
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $this->errors[]= "The email entered is not a valid one.";
+
+        if(!$user->login($email, $password)) {
+            $this->errors[] = "Incorrect email or password.";
+
+            $user->increaseFaildeAttempts($email);
+        }
+
+        if(empty($this->errors))
+            return true;
+        else
+            return false;
     }
 
     private function validateSubmit() {
@@ -86,45 +116,6 @@ class UserController extends Controller {
         }
 
         return $errors;
-    }
-
-    private function retrieveBillingAdress(): string {
-
-        $billing = [
-            "address" => $this->sanitize($_POST["bill-address1"]),
-            "address2" => $this->sanitize($_POST["bill-address2"]),
-            "city" => $this->sanitize($_POST["bill-city"]),
-            "state" => $this->sanitize($_POST["bill-state"]),
-            "zip" => $this->sanitize($_POST["bill-zip"]),
-            "country" => $this->sanitize($_POST["bill-country"])
-        ];
-
-        // Concatenate billing address
-        $address = "";
-        foreach($billing as $addressItem) {
-            $address .= $addressItem . " ";
-        }
-
-        return $address;
-    }
-
-    private function retrieveShippingAdress(): string {
-        $shipping = [
-            "address" => $this->sanitize($_POST["ship-address1"]),
-            "address2" => $this->sanitize($_POST["ship-address2"]),
-            "city" => $this->sanitize($_POST["ship-city"]),
-            "state" => $this->sanitize($_POST["ship-state"]),
-            "zip" => $this->sanitize($_POST["ship-zip"]),
-            "country" => $this->sanitize($_POST["ship-country"])
-        ];
-
-        // Concatenate shipping address
-        $address = "";
-        foreach($shipping as $addressItem) {
-            $address .= $addressItem . " ";
-        }
-
-        return $address;
     }
 
 }

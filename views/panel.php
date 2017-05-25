@@ -67,6 +67,7 @@
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $sitelink; ?>/panel/">Homepage</a></li>
 									<li><a href="<?php echo $sitelink; ?>/panel/stats">Stats</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/logout">Log Out</a></li>
 								</ul>
 							</li>
 							<li>
@@ -114,7 +115,8 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script><script id="facebook-jssdk" src="https://connect.facebook.net/tr_TR/sdk.js#xfbml=1&amp;appId=571763212946322&amp;version=v2.0"></script><script src="<?php echo $sitelink; ?>/static/js/jquery.min.js"></script>
+	<script id="twitter-wjs" src="https://platform.twitter.com/widgets.js"></script>
+    <script id="facebook-jssdk" src="https://connect.facebook.net/tr_TR/sdk.js#xfbml=1&amp;appId=571763212946322&amp;version=v2.0"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/bootstrap.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/jasny-bootstrap.min.js"></script>
@@ -132,6 +134,7 @@
 	<script src="<?php echo $sitelink; ?>/static/js/calendar.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/jquery.touchSwipe.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/script.js"></script>
+	<script src="<?php echo $sitelink; ?>/static/js/custom.js"></script>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 
