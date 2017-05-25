@@ -22,6 +22,7 @@
 <link href="<?php echo $sitelink; ?>/static/css/bootstrap-gallery.css" rel="stylesheet">
 <!-- ColorBox CSS -->
 <link href="<?php echo $sitelink; ?>/static/css/colorbox.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <!-- Custom font -->
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,100,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Roboto+Slab&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -132,7 +133,7 @@
 	<script src="<?php echo $sitelink; ?>/static/js/isotope.pkgd.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/jquery.ellipsis.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/calendar.js"></script>
-	<script src="<?php echo $sitelink; ?>/static/js/jquery.touchSwipe.min.js"></script>
+    <script src="<?php echo $sitelink; ?>/static/js/jquery.touchSwipe.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/script.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/custom.js"></script>
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
