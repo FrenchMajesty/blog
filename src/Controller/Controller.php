@@ -31,13 +31,16 @@ class Controller {
     public function dispatchErrors(): string {
         $err = "";
 
-        if(empty($this->errors)) $err = "Unknown Database error while performing operation.";
-        else {
+        if(empty($this->errors))  {
+            $err = "<i class='fa fa-exclamation'></i> Unknown Database error while performing operation.";
+
+        } else {
+
             foreach($this->errors as $errMessage) {
-                $err .= $errMessage . "<br>";
+                $err .= '<i class="fa fa-exclamation"></i>' . $errMessage . '<br>';
             }
         }
-        return '<div class="alert alert-danger">' . $err . '</div>';
+        return '<div class="form-warning">' . $err . '</div>';
     }
 
     public function getRawErrors(): array {
