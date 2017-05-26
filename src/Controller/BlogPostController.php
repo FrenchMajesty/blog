@@ -27,11 +27,7 @@ class BlogPostController extends Controller {
         $image = isset($_FILES['image']) ?
                  new File($_FILES["image"]) : NULL;
 
-        $embed = isset($_POST['embed']) ?
-                 $this->sanitize($_POST["embed"]) : NULL;
-
-        if($type == 'text')
-            $embed = $_POST["embed"];
+        $embed = $_POST["embed"];
 
         if(strlen($name) > 50)
             $this->errors[] = "Title is too long.";
@@ -83,7 +79,7 @@ class BlogPostController extends Controller {
 
 
             $blog->create();
-            //$this->saveToLog('Create Publication', 'Blog (ID: '.$blog->getID().') was created.', $this->user->getID());
+            $this->saveToLog('Create Publication', 'Post (ID: '.$blog->getID().') was created.', $this->user->getID());
 
             return true;
 
@@ -95,20 +91,20 @@ class BlogPostController extends Controller {
     public function deletePost(): bool {
 
         $id = $this->sanitize($_POST["id"]);
+        $blog = new BlogPost(new Database(), $id);
 
 
-        if(!$this->verifyFormToken('deleteBlog'))
+        if(!$this->verifyFormToken('deletePost'))
             $this->errors[] = "Incorrect form submitted.";
 
-        if(!is_numeric($id))
-            $this->errors[] = "Invalid blog ID, please refresh the page.";
+        if($blog->getID() == NULL)
+            $this->errors[] = "Publication with that ID, could not be found.";
+
 
         if(empty($this->errors)) {
 
-            $blog = new Blog(new Database(), $id);
-
             $blog->delete();
-            $this->saveToLog('Delete Publication', 'Blog (ID: '.$blog->getID().') was deleted.');
+            $this->saveToLog('Delete Publication', 'Post (ID: '.$blog->getID().') was deleted.', $this->user->getID());
 
             return true;
 

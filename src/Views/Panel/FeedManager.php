@@ -2,8 +2,11 @@
 namespace Views\Panel;
 
 use Views\Views;
-use Core\Template;
 
+use Core\Template;
+use Core\Database;
+
+use Model\BlogPost;
 use Model\User;
 
 class FeedManager extends Views {
@@ -16,6 +19,11 @@ class FeedManager extends Views {
 
     public function init() {
         $this->view->pagename = 'Manage publications';
+
+        $blogs = new BlogPost(new Database());
+        $this->view->publications = $blogs->loadAllPosts();
+
+        $this->view->deleteToken = $blogs->generateFormToken('deletePost');
 
         $this->view->content = $this->view->render('/panel/feed-manager.php');
     }

@@ -162,6 +162,17 @@ $router->mount('/panel', function() use ($router, &$view, &$user) {
     });
 
 
+    $router->post('/feed/delete', function() use (&$user) {
+
+        $controller = new Controller\BlogPostController($user);
+
+        if($controller->deletePost())
+            echo 'true';
+        else
+            echo json_encode($controller->dispatchErrors());
+    });
+
+
     $router->get('/add/post', function() use (&$view, &$user) {
 
         $page = new Views\Panel\CreatePost($view, $user);

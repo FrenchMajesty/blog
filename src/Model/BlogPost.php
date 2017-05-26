@@ -49,6 +49,19 @@ class BlogPost extends Model {
         return false;
     }
 
+    public function delete() {
+
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM blogposts WHERE id=:id");
+            $stmt->bindParam(":id", $this->id);
+
+            $stmt->execute();
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function getID(): ?int {
         return $this->id;
     }
@@ -74,7 +87,7 @@ class BlogPost extends Model {
     }
 
     public function getTags(): array {
-        return implode(",", $this->name);
+        return $this->tags;
     }
 
     public function getDate(): string {
@@ -110,11 +123,33 @@ class BlogPost extends Model {
     }
 
 
-    public static function loadAllPosts(): array {
+    public function loadAllPosts(): array {
         $blogPosts = [];
 
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM blogposts");
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts ORDER BY id DESC");
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $blogs = $stmt->fetchAll();
+
+                foreach($blogs as $row) {
+                    $blogPosts[] = new BLogPost($this->_db, null, $row);
+                }
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return $blogPosts;
+    }
+
+    public function loadAllGallery(): array {
+        $blogPosts = [];
+
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts WHERE media_type='picture' ORDER BY id DESC");
             $stmt->execute();
 
             if($stmt->rowCount() > 0) {

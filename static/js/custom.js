@@ -23,9 +23,27 @@ const pageLoaded = {
         // Create Post
         const form = document.querySelector('form')
               form.addEventListener('submit', handleCreatePost)
+    },
+
+
+    'feedManager': function () {
+
+        // Delete publication
+        const deleteButtons = document.querySelectorAll('.fa-trash-o')
+              deleteButtons.forEach(button => button.parentNode.addEventListener('click', handleDeletePost))
+    },
+
+
+    'galleryManager': function () {
+
+        // Delete publication
+        const deleteButtons = document.querySelectorAll('.fa-trash-o')
+              deleteButtons.forEach(button => button.parentNode.addEventListener('click', handleDeletePost))
     }
 
 }
+
+
 
 function changeNewPostType(e) {
 
@@ -64,6 +82,26 @@ function handleCreatePost(e) {
         // Show Message
         $('#createPost-message').html(response.message)
     })
+}
+
+function handleDeletePost(e) {
+    const id = e.target.parentElement.getAttribute('data-id'),
+          token = document.getElementById('delete-token').value
+
+    if(confirm('Are you sure you want to delete this publication? This operation cannot be reverted.')) {
+
+        let formData = new FormData()
+            formData.append('id', id)
+            formData.append('token', token)
+
+        submitAjaxTo('/blog/panel/feed/delete', formData)
+        .done(response => {
+            console.log(response)
+            success = JSON.parse(response)
+
+            if(response === true) $(`[data-item=${id}]`).slideUp() // Remove post form list
+        })
+    }
 }
 
 function handleLogin(e) {
