@@ -20,8 +20,27 @@ class Views {
         // To be used in the views template
 
         $this->view->formatDate = function($date) {
+            return date("d M, Y", strtotime($date));
             // format date..
         };
+
+        $this->view->formatTags = function($tags) {
+            $result = '';
+            foreach($tags as $tag) {
+                $result .= '<a href="#">#' . $tag . '</a> ';
+            }
+
+            return $result;
+        };
+
+        $this->view->capitalize = function ($str) {
+            return ucfirst($str);
+        };
+
+        $this->view->allCaps = function ($str) {
+            return strtoupper($str);
+        };
+
     }
 }
 
