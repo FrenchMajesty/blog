@@ -128,6 +128,10 @@ p {
 	color: #4d4d4f;
 	line-height: 26px;
 }
+iframe {
+    width: 100%;
+    height: 100%;
+}
 .head-text {
 	padding: 60px 0 48px;
 	text-align: center;
