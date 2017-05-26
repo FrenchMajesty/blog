@@ -11,7 +11,7 @@
 <!-- Bootstrap core CSS -->
 <link href="<?php echo $sitelink; ?>/static/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome CSS -->
-    <script src="https://use.fontawesome.com/53cc68c3d4.js"></script>
+<script src="https://use.fontawesome.com/53cc68c3d4.js"></script>
 <!-- Jasny CSS -->
 <link href="<?php echo $sitelink; ?>/static/css/jasny-bootstrap.min.css" rel="stylesheet">
 <!-- Animate CSS -->
@@ -28,6 +28,9 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto+Slab&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <!-- Custom styles for this template -->
 <link href="<?php echo $sitelink; ?>/static/css/style.css" rel="stylesheet">
+<link href="<?php echo $sitelink; ?>/static/css/froala_style.min.css" rel="stylesheet">
+<link href="<?php echo $sitelink; ?>/static/css/froala_editor.pkgd.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -136,6 +139,10 @@
     <script src="<?php echo $sitelink; ?>/static/js/jquery.touchSwipe.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/script.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/custom.js"></script>
+	<script src="<?php echo $sitelink; ?>/static/js/froala_editor.pkgd.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 
