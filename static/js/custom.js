@@ -96,10 +96,9 @@ function handleDeletePost(e) {
 
         submitAjaxTo('/blog/panel/feed/delete', formData)
         .done(response => {
-            console.log(response)
-            success = JSON.parse(response)
+            response = JSON.parse(response)
 
-            if(response === true) $(`[data-item=${id}]`).slideUp() // Remove post form list
+            if(response === true) $(`[data-item=${id}]`).hide() // Remove post form list
         })
     }
 }
