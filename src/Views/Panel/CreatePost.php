@@ -17,6 +17,8 @@ class CreatePost extends Views {
     public function init() {
         $this->view->pagename = 'Add a post';
 
+        $this->view->createPostToken = User::generateFormToken('createPost');
+
         $this->view->content = $this->view->render('/panel/create-post.php');
     }
 

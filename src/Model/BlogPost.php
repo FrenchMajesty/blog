@@ -5,13 +5,13 @@ use Core\Database;
 
 class BlogPost extends Model {
     private $id;
-    private $title = 'Title';
-    private $category = 'design';
-    private $summary = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod *';
-    private $media = 'https://dummyimage.com/225x148/fff700/0011ff';
-    private $mediaType;
-    private $date;
+    private $name;
+    private $description;
+    private $category;
+    private $type;
+    private $media;
     private $tags;
+    private $date;
 
     public function __construct(Database $db, $id = null, $row = null) {
         parent::__construct($db);
@@ -22,17 +22,93 @@ class BlogPost extends Model {
             $this->load($id);
     }
 
-    public function getTitle() {
-        return $this->title;
+    public function create(): bool {
+
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO blogposts (name, description, category, media_type, media, tags)
+                                                    VALUES (:name, :description, :category, :type, :media, :tags)");
+
+            $stmt->bindParam(":name",$this->name);
+            $stmt->bindParam(":description",$this->description);
+            $stmt->bindParam(":category",$this->category);
+            $stmt->bindParam(":type",$this->type);
+            $stmt->bindParam(":media",$this->media);
+            @$stmt->bindParam(":tags",implode(",", $this->tags));
+
+            $stmt->execute();
+
+            if($stmt->rowCount() == 1) {
+                $this->id = $this->conn->lastInsertId();
+                return true;
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMeesage();
+        }
+
+        return false;
     }
 
-    public function getContent() {
-        return $this->content;
+    public function getID(): ?int {
+        return $this->id;
     }
 
-    public function getThumbnail() {
-        return $this->thumbnail;
+    public function getName(): string {
+        return $this->name;
     }
+
+    public function getDescription(): string {
+        return $this->description;
+    }
+
+    public function getCategory(): string {
+        return $this->category;
+    }
+
+    public function getType(): string {
+        return $this->type;
+    }
+
+    public function getMedia(): string {
+        return $this->media;
+    }
+
+    public function getTags(): array {
+        return implode(",", $this->name);
+    }
+
+    public function getDate(): string {
+        return $this->date;
+    }
+
+    public function setName(string $name) {
+        $this->name = $name;
+    }
+
+    public function setDescription(string $text) {
+        $this->description = $text;
+    }
+
+    public function setCategory(string $category) {
+        $this->category = $category;
+    }
+
+    public function setType(string $type) {
+        $this->type = $type;
+    }
+
+    public function setMedia($media) {
+
+        if(is_string($media))
+            $this->media = $media;
+        else
+            $this->media = $media->getUrl();
+    }
+
+    public function setTags(array $tags) {
+        $this->tags = array_map('trim', $tags);
+    }
+
 
     public static function loadAllPosts(): array {
         $blogPosts = [];
@@ -59,9 +135,10 @@ class BlogPost extends Model {
     private function loadRow($blog) {
 
         $this->id = $blog["id"];
-        $this->title= $blog["title"];
+        $this->name= $blog["name"];
         $this->category = $blog["category"];
-        $this->summary = $blog["summary"];
+        $this->description = $blog["description"];
+        $this->type = $blog["media_type"];
         $this->media = $blog["media"];
         $this->tags = explode(",", $blog["tags"]);
         $this->date = $blog["date_posted"];
@@ -78,13 +155,7 @@ class BlogPost extends Model {
             if($stmt->rowCount() == 1) {
                 $blog = $stmt->fetch();
 
-                $this->id = $blog["id"];
-                $this->title= $blog["title"];
-                $this->category = $blog["category"];
-                $this->summary = $blog["summary"];
-                $this->media = $blog["media"];
-                $this->tags = explode(",", $blog["tags"]);
-                $this->date = $blog["date_posted"];
+                $this->loadRow($blog);
             }
 
         }catch(PDOException $e) {

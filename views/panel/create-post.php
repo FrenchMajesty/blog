@@ -7,15 +7,14 @@
 										<div class="comment-body">
 											<p class="comment-text">Sharing with world, and post some of the amazing work you do or just share a piece of your mind with us or something you found interesting.</p>
 
-                                            <div id="createPost-message"></div>
                                             <form>
 											<div class="comment-form">
 
                                                 <span><a href="#" class="comment-reply">Name or Title</a></span>
-                                                <div class="row"><input name="name" type="text" class="comment-input" placeholder="Name or Title" type="text"></div>
+                                                <div class="row"><input value="My art" name="name" type="text" class="comment-input" placeholder="Name or Title" type="text" autocomplete="off"></div>
 
                                                     <span><a href="#" class="comment-reply">Description</a></span>
-													<div class="row"><textarea name="description" class="comment-textarea" placeholder="Write here about this awesome thing you're about to post..." style="height: 11em;"></textarea></div>
+													<div class="row"><textarea name="description" class="comment-textarea" placeholder="Tell us more here about this thing you're about to post..." style="height: 11em;">Donde esta el courto description de mi trabajar</textarea></div>
 
                                                     <span><a href="#" class="comment-reply">Type:</a></span>
                                                 <div class="row">
@@ -30,26 +29,28 @@
                                                 <span><a href="#" class="comment-reply">Category</a></span>
                                                 <div class="row">
                                                     <select class="comment-input" name="category" required>
-                                                        <option value="" selected disabled>-- Please select an option</option>
-                                                        <option value="design">Design</option>
+                                                        <option value="" disabled>-- Please select an option</option>
+                                                        <option value="design" selected>Design</option>
                                                         <option value="article">Article</option>
                                                         <option value="fun">Fun</option>
                                                     </select>
                                                 </div>
 
                                                  <span><a href="#" class="comment-reply">Tags</a></span>
-                                                <div class="row"><input name="tags" type="text" class="comment-input" placeholder="Enter tags comma separated" type="text"></div>
+                                                <div class="row"><input value="food,art,red,fun" name="tags" type="text" class="comment-input" placeholder="Enter tags comma separated" type="text" maxlength="100" autocomplete="off"></div>
 
+                                                <input type="hidden" name="token" value="<?php echo $createPostToken; ?>">
 
 												<br><button type="submit" class="btn btn-golden">Add Publication</button>
                                                 </div>
 												</form>
 
 										</div>
+                                        <div id="createPost-message"></div>
 									</div>
 								</div>
 							</div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => { pageLoaded['createPost']() } )
+    document.addEventListener('DOMContentLoaded', () => { pageLoaded['createPost']() })
 </script>

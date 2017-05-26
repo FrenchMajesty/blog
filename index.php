@@ -171,6 +171,23 @@ $router->mount('/panel', function() use ($router, &$view, &$user) {
     });
 
 
+    $router->post('/add/post', function() use (&$user) {
+
+        $controller = new Controller\BlogPostController($user);
+
+        if($controller->createPost()){
+            echo json_encode([
+                "success" => true,
+                "message" => $controller->successMessage('Your publication has been posted.') ]);
+
+        }else {
+            echo json_encode([
+                "success" => false,
+                "message" => $controller->dispatchErrors() ]);
+        }
+    });
+
+
     $router->get('/contacts', function() use (&$view, &$user) {
 
         $page = new Views\Panel\ContactBlogger($view, $user);

@@ -30,18 +30,24 @@ const pageLoaded = {
 function changeNewPostType(e) {
 
     const buttonsRow = e.target.parentElement.parentElement,
-          buttonName = e.target.parentElement.textContent.toLowerCase()
+          buttonName = e.target.value
     let newInput = ''
 
 
-    if(buttonName != 'picture')
+    if(buttonName == 'picture') {
+        newInput = $('<input class="comment-input" type="file" name="image" style="display: none;" required>')
+
+    } else if(buttonName == 'text') {
+        newInput = $(`<textarea id="text-editor" name="embed" style="height: 11em; display: none;"></textarea>`)
+
+       initializeTextEditor(newInput)
+    } else {
         newInput = $(`<textarea name="embed" class="comment-textarea" placeholder="Copy & Paste the <embed> link of your ${buttonName} here" style="height: 11em; display: none;"></textarea>`)
-    else
-        newInput = $('<input class="comment-input" type="file" name="image" style="display: none;">')
+    }
 
     // Animate and show new input
     $('#new-row').html(newInput)
-    newInput.slideDown(300)
+    newInput.slideDown(700)
 }
 
 function handleCreatePost(e) {
@@ -51,13 +57,12 @@ function handleCreatePost(e) {
 
     submitAjaxTo('', formData)
     .done(response => {
-        console.log(response)
-        /*response = JSON.parse(response)
+        response = JSON.parse(response)
 
         if(response.success) e.target.reset() // Clear form
 
         // Show Message
-        $('#createPost-message').html(response.message)*/
+        $('#createPost-message').html(response.message)
     })
 }
 
@@ -77,6 +82,17 @@ function handleLogin(e) {
     })
 }
 
+function initializeTextEditor(input) {
+    setTimeout(() => {
+
+        input.froalaEditor({
+                height: 150
+        })
+        .on('froalaEditor.image.beforeUpload', () => {
+            return false;
+        })
+    }, 5)
+}
 function submitAjaxTo(url, data) {
     return $.ajax(url, {
         type: 'POST',
