@@ -1,7 +1,6 @@
 <?php
 namespace Core;
 
-use Core\Config;
 
 class File {
     private $file;
@@ -10,7 +9,7 @@ class File {
         $this->file = $file;
     }
 
-    public function getUrl() {
+    public function getUrl(): ?string {
         return is_string($this->file) ? $this->file : null;
     }
 
@@ -25,20 +24,22 @@ class File {
 
             $random = rand(100000,999999);
             $path = pathinfo($this->file["name"]);
-            $folder = $_SERVER["DOCUMENT_ROOT"] . "/blog/images/thumbnails/";
+            $folder = $_SERVER["DOCUMENT_ROOT"] . "/blog/static/images/uploads/";
 
             $upload_image = $folder . date("Ymd") . '-' . $random . '.' . $path["extension"];
 
             if (move_uploaded_file($this->file["tmp_name"], $upload_image)) {
 
-                $this->file = substr($upload_image, 44);
+                $this->file = substr($upload_image, 42);
                 return true;
 
             } else {
                 $this->file = null;
-                return false;
             }
         }
+
+
+        return false;
     }
 
     private function delete() {
