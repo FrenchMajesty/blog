@@ -1,10 +1,11 @@
 <?php
 namespace Controller;
 
+use Exception;
+
 use Core\Database;
 use Model\LogEntry;
 
-use Exception;
 
 class Controller {
 
@@ -51,10 +52,10 @@ class Controller {
         throw new Exception($errMsg);
     }
 
-    protected function saveToLog(string $operation, string $details) {
+    protected function saveToLog(string $operation, string $details, int $userID) {
 
         $log = new LogEntry(new Database());
-        $log->save($operation, $details);
+        $log->save($operation, $details, $userID);
     }
 
     protected function sanitize(string $input): string {

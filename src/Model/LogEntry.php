@@ -19,12 +19,13 @@ class LogEntry extends Model {
             $this->load($id);
     }
 
-    public function save(string $operation, string $details) {
+    public function save(string $operation, string $details, int $userID) {
 
         try {
-            $stmt = $this->conn->prepare("INSERT INTO logs (operation, message) VALUES (:operation, :details)");
+            $stmt = $this->conn->prepare("INSERT INTO logs (operation, message, user_id) VALUES (:operation, :details, :id)");
             $stmt->bindParam(":operation", $operation);
             $stmt->bindParam(":details", $details);
+            $stmt->bindParam(":id", $userID);
             $stmt->execute();
 
 
