@@ -36,7 +36,7 @@ const pageLoaded = {
 
     'galleryManager': function () {
 
-        // Delete publication
+        // Delete gallery publication
         const deleteButtons = document.querySelectorAll('.fa-trash-o')
               deleteButtons.forEach(button => button.parentNode.addEventListener('click', handleDeletePost))
     }
