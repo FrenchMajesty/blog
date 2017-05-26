@@ -226,9 +226,9 @@ class User extends Model {
             $stmt->bindParam(":id", $id);
             $stmt->execute();
 
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user = $stmt->fetch();
 
-            if($stmt->rowCount() > 0) {
+            if($stmt->rowCount() == 1) {
 
                 $this->loadRow($user);
             }
