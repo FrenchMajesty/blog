@@ -2,6 +2,7 @@
 namespace Model;
 
 use Core\Database;
+use Core\File;
 
 class BlogPost extends Model {
     private $id;
@@ -49,6 +50,26 @@ class BlogPost extends Model {
         return false;
     }
 
+    public function update() {
+
+        try {
+            $stmt = $this->conn->prepare("UPDATE blogposts SET name= :name, description= :description, category=:category,
+                                        media=:media , tags= :tags WHERE id=:id");
+
+            $stmt->bindParam(":id", $this->id);
+            $stmt->bindParam(":name", $this->name);
+            $stmt->bindParam(":description", $this->description);
+            $stmt->bindParam(":category", $this->category);
+            $stmt->bindParam(":media", $this->media);
+            @$stmt->bindParam(":tags", implode(",", $this->tags));
+
+            $stmt->execute();
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function delete() {
 
         try {
@@ -60,6 +81,14 @@ class BlogPost extends Model {
         }catch(PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+    public function differentImages(File $image): bool {
+
+        $img = md5_file($_SERVER['DOCUMENT_ROOT'] . '/blog' . $this->media);
+        $img2 = md5_file($image->getAbsolute());
+
+        return $img != $img2;
     }
 
     public function getID(): ?int {

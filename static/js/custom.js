@@ -26,6 +26,23 @@ const pageLoaded = {
     },
 
 
+    'editPost': function () {
+
+        // Image uploader
+        const input = document.getElementById('file-0')
+        if(input) initializeImageReplacer(input)
+
+        // Text replacer
+        const htmlEditor = document.getElementById('html-editor')
+        if(htmlEditor) initializeTextEditor($(htmlEditor))
+
+        // Update post
+        const form = document.querySelector('form')
+              form.addEventListener('submit', handleUpdatePost)
+
+    },
+
+
     'feedManager': function () {
 
         // Delete publication
@@ -84,6 +101,20 @@ function handleCreatePost(e) {
     })
 }
 
+function handleUpdatePost(e) {
+    e.preventDefault()
+
+    let formData = new FormData(e.target)
+
+    submitAjaxTo('', formData)
+    .done(response => {
+        response = JSON.parse(response)
+
+        // Show message
+        $('#edit-message').html(response)
+    })
+}
+
 function handleDeletePost(e) {
     const id = e.target.parentElement.getAttribute('data-id'),
           token = document.getElementById('delete-token').value
@@ -119,6 +150,34 @@ function handleLogin(e) {
     })
 }
 
+function initializeImageReplacer(input) {
+
+    const size = input.getAttribute('data-image-size'),
+          url = input.getAttribute('data-image')
+
+    let image = new Image()
+        image.src = url
+
+    image.onload = () => {
+
+        $(input).fileinput({
+            allowedFileExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+            showUpload: false,
+            showCaption: false,
+            browseClass: "btn btn-primary btn-lg",
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+            overwriteInitial: true,
+            initialPreviewAsData: true,
+            initialPreview: [
+                url
+            ],
+            initialPreviewConfig: [
+                {caption: "imagename.jpg", size: size, width: `${image.width}px`, url: "{$url}", key: 1}
+            ]
+        })
+    }
+}
+
 function initializeTextEditor(input) {
     setTimeout(() => {
 
@@ -130,6 +189,7 @@ function initializeTextEditor(input) {
         })
     }, 5)
 }
+
 function submitAjaxTo(url, data) {
     return $.ajax(url, {
         type: 'POST',

@@ -100,9 +100,7 @@ $router->post('/login', function() use (&$user) {
             $user->redirectTo('/blog/login');
     });
 
-$router->mount('/panel', function() use ($router, &$view, &$user) {
-
-
+$router->mount('/panel', function() use ($router, &$view, &$user, &$Database) {
 
 
     // *** PAGES WHERE LOGIN IS REQUIRED BELOW ***/
@@ -160,6 +158,33 @@ $router->mount('/panel', function() use ($router, &$view, &$user) {
 
         echo $view->render('panel.php');
     });
+
+
+    $router->get('/feed/(\d+)', function($id) use (&$view, &$user, &$Database) {
+
+        $post = new Model\BlogPost($Database, $id);
+
+        if($post->getID() != NULL)
+            $page = new Views\Panel\EditPost($view, $user, $post);
+        else
+            $page = new Views\NotFound404($view);
+
+        $page->init();
+
+        echo $view->render('panel.php');
+    });
+
+
+    $router->post('/feed/(\d+)', function() use (&$user) {
+
+        $controller = new Controller\BlogPostController($user);
+
+        if($controller->updatePost())
+            echo json_encode($controller->successMessage('Publication successfully updated.'));
+        else
+            echo json_encode($controller->dispatchErrors());
+    });
+
 
 
     $router->post('/feed/delete', function() use (&$user) {
