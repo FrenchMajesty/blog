@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="icon" href="<?php echo $sitelink; ?>/static/images/favicon.ico">
-<title><?php echo $sitename . ' Admin Panel - ' . $pagename ?></title>
+<title><?php echo $sitename . ' Panel - ' . $pagename ?></title>
 <!-- Bootstrap core CSS -->
 <link href="<?php echo $sitelink; ?>/static/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome CSS -->
@@ -28,6 +28,7 @@
 <link href='http://fonts.googleapis.com/css?family=Roboto+Slab&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 <!-- Custom styles for this template -->
 <link href="<?php echo $sitelink; ?>/static/css/style.css" rel="stylesheet">
+<link href="<?php echo $sitelink; ?>/static/css/fileinput.min.css" rel="stylesheet">
 <link href="<?php echo $sitelink; ?>/static/css/froala_style.min.css" rel="stylesheet">
 <link href="<?php echo $sitelink; ?>/static/css/froala_editor.pkgd.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
@@ -139,6 +140,7 @@
     <script src="<?php echo $sitelink; ?>/static/js/jquery.touchSwipe.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/script.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/custom.js"></script>
+	<script src="<?php echo $sitelink; ?>/static/js/fileinput.min.js"></script>
 	<script src="<?php echo $sitelink; ?>/static/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
