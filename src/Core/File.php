@@ -13,6 +13,14 @@ class File {
         return is_string($this->file) ? $this->file : null;
     }
 
+    public function getAbsolute(): string {
+
+        if(is_array($this->file))
+            return $this->file["tmp_name"];
+        else
+            return $_SERVER["DOCUMENT_ROOT"] . '/blog' . $this->file;
+    }
+
     public function isValidImage(): bool {
         return @getimagesize($this->file["tmp_name"]) ? true : false;
     }
@@ -20,7 +28,7 @@ class File {
     public function uploadImage(): bool {
 
         if($this->isValidImage()) {
-            // Upload thumbnail to server
+            // Upload image to server
 
             $random = rand(100000,999999);
             $path = pathinfo($this->file["name"]);
