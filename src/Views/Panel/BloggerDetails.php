@@ -17,6 +17,9 @@ class BloggerDetails extends Views {
     public function init() {
         $this->view->pagename = 'My Details';
 
+
+        $this->view->updateDetailsToken = User::generateFormToken('updateDetails');
+
         $this->view->content = $this->view->render('/panel/my-details.php');
     }
 

@@ -242,6 +242,17 @@ $router->mount('/panel', function() use ($router, &$view, &$user, &$Database) {
     });
 
 
+    $router->post('/my-details', function() use (&$user) {
+
+        $controller = new Controller\UserController($user);
+
+        if($controller->updateBloggerDetails())
+            echo json_encode($controller->successMessage('Informations successfully updated.'));
+        else
+            echo json_encode($controller->dispatchErrors());
+    });
+
+
     $router->get('/gallery', function() use (&$view) {
 
         $page = new Views\Gallery($view);

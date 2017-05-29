@@ -39,7 +39,6 @@ const pageLoaded = {
         // Update post
         const form = document.querySelector('form')
               form.addEventListener('submit', handleUpdatePost)
-
     },
 
 
@@ -56,11 +55,38 @@ const pageLoaded = {
         // Delete gallery publication
         const deleteButtons = document.querySelectorAll('.fa-trash-o')
               deleteButtons.forEach(button => button.parentNode.addEventListener('click', handleDeletePost))
+    },
+
+
+    'myDetails': function() {
+
+        // Update details
+        const form = document.querySelector('form')
+              form.addEventListener('submit', handleUpdateDetails)
+
+        // Initialize image uploader
+        const input = document.getElementById('file-0')
+        initializeImageReplacer(input)
+
+        // Password field activation
+        const passwords = document.querySelectorAll('input[type="password"]')
+              passwords.forEach(pwd => pwd.addEventListener('change', handleActivatePassword))
     }
 
 }
 
 
+function handleActivatePassword(e) {
+    let pwds = document.querySelectorAll('input[type="password"]')
+
+    if(pwds[0].value.length > 0 || pwds[1].value.length > 0) {
+        // Activate password fields
+        pwds.forEach(input => input.setAttribute('required', ''))
+    } else {
+        // Disable them
+         pwds.forEach(input => input.removeAttribute('required'))
+    }
+}
 
 function changeNewPostType(e) {
 
@@ -132,6 +158,21 @@ function handleDeletePost(e) {
             if(response === true) $(`[data-item=${id}]`).hide() // Remove post form list
         })
     }
+}
+
+function handleUpdateDetails(e) {
+    e.preventDefault()
+
+    let formData = new FormData(e.target)
+
+    submitAjaxTo('', formData)
+    .done(response => {
+        console.log(response)
+       response = JSON.parse(response)
+
+        // Show message
+        $('#details-message').html(response)
+    })
 }
 
 function handleLogin(e) {

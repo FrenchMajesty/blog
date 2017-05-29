@@ -17,6 +17,7 @@ class User extends Model {
     private $occupation;
     private $socialMedias;
     private $interests;
+    private $shortBio;
     private $biography;
 
 
@@ -43,6 +44,32 @@ class User extends Model {
             $stmt->bindparam(":interests", implode(",", $this->interests));
             $stmt->bindparam(":socials", json_encode($this->socialMedias));
             $stmt->bindparam(":biography", $this->biography);
+
+            $stmt->execute();
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function update() {
+
+        try {
+            $stmt = $this->conn->prepare("UPDATE user SET email= :email, password= :password, name= :name, address= :address, picture= :picture,
+                                            occupation= :occupation, interests= :interests, socials= :socialMedias, short_bio= :shortBio, biography= :bio
+                                            WHERE id= :id");
+
+            $stmt->bindparam(":id", $this->id);
+            $stmt->bindparam(":email", $this->email);
+            $stmt->bindparam(":password", $this->password);
+            $stmt->bindparam(":name", $this->fullName);
+            $stmt->bindparam(":address", $this->address);
+            $stmt->bindparam(":picture", $this->picture);
+            $stmt->bindparam(":occupation", $this->occupation);
+            @$stmt->bindparam(":interests", implode(",", $this->interests));
+            @$stmt->bindparam(":socialMedias", json_encode($this->socialMedias));
+            $stmt->bindparam(":shortBio", $this->shortBio);
+            $stmt->bindparam(":bio", $this->biography);
 
             $stmt->execute();
 
@@ -144,6 +171,10 @@ class User extends Model {
         $this->interests = $interests;
     }
 
+    public function setShortBio(string $bio) {
+        $this->shortBio = $bio;
+    }
+
     public function setBiography(string $bio) {
         $this->biography = $bio;
     }
@@ -156,8 +187,17 @@ class User extends Model {
         return $this->email;
     }
 
-    public function getName(): string {
-        return $this->fullName;
+    public function getName($part = "full"): string {
+        $name = explode(" ", $this->fullName);
+
+        if($part == "full")
+            $str = $this->fullName;
+        else if($part == "first")
+            $str = $name[0];
+        else if($part == "last")
+            $str = $name[1];
+
+        return $str;
     }
 
     public function getAddress(): string {
@@ -178,6 +218,10 @@ class User extends Model {
 
     public function getSocialMedias() {
         return $this->socialMedias;
+    }
+
+    public function getShortBio(): string {
+        return $this->shortBio;
     }
 
     public function getBiography(): string {
@@ -216,6 +260,7 @@ class User extends Model {
         $this->occupation = $row["occupation"];
         $this->interests = explode(",", $row["interests"]);
         $this->socialMedias = json_decode($row["socials"]);
+        $this->shortBio = $row["short_bio"];
         $this->biography = $row["biography"];
     }
 
