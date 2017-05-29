@@ -20,7 +20,7 @@ class EditPost extends Views {
         $this->view->pagename = 'Edit publication';
 
 
-        $this->view->editPostToken = User::generateFormToken('editPost');
+        $this->view->editPostToken = BlogPost::generateFormToken('editPost');
 
         $this->view->content = $this->view->render('/panel/edit-post.php');
     }

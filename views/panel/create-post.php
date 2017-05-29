@@ -7,14 +7,14 @@
 										<div class="comment-body">
 											<p class="comment-text">Sharing with world, and post some of the amazing work you do or just share a piece of your mind with us or something you found interesting.</p>
 
-                                            <form>
+                                            <form enctype="multipart/form-data">
 											<div class="comment-form">
 
                                                 <span><a href="#" class="comment-reply">Name or Title</a></span>
-                                                <div class="row"><input value="My art" name="name" type="text" class="comment-input" placeholder="Name or Title" type="text" autocomplete="off"></div>
+                                                <div class="row"><input value="My art" name="name" type="text" class="comment-input" placeholder="Name or Title" type="text" autocomplete="off" required></div>
 
                                                     <span><a href="#" class="comment-reply">Description</a></span>
-													<div class="row"><textarea name="description" class="comment-textarea" placeholder="Tell us more here about this thing you're about to post..." style="height: 11em;">Donde esta el courto description de mi trabajar</textarea></div>
+													<div class="row"><textarea name="description" class="comment-textarea" placeholder="Tell us more here about this thing you're about to post..." style="height: 11em;" required>Donde esta el courto description de mi trabajar</textarea></div>
 
                                                     <span><a href="#" class="comment-reply">Type:</a></span>
                                                 <div class="row">

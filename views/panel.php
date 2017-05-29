@@ -78,7 +78,7 @@
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Publications</a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/panel/feed/edit">Manage publications</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/feed/edit">Manage Publications</a></li>
 									<li><a href="<?php echo $sitelink; ?>/panel/feed">View Blog Feed</a></li>
 								</ul>
 							</li>
@@ -92,7 +92,7 @@
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About</a>
                                 <ul class="dropdown-menu" role="menu">
-									<li><a href="<?php echo $sitelink; ?>/panel/contacts">How to find me</a></li>
+									<li><a href="<?php echo $sitelink; ?>/panel/contacts">How to Find Me</a></li>
 									<li><a href="<?php echo $sitelink; ?>/panel/my-details">My Details</a></li>
 								</ul>
 							</li>
