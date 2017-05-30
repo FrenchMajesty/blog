@@ -233,6 +233,17 @@ $router->mount('/panel', function() use ($router, &$view, &$user, &$Database) {
     });
 
 
+    $router->post('/contacts', function() use (&$user) {
+
+        $controller = new Controller\UserController($user);
+
+        if($controller->updateSocials())
+            echo json_encode($controller->successMessage('Social media accounts successfully updated.'));
+        else
+            echo json_encode($controller->dispatchErrors());
+    });
+
+
     $router->get('/my-details', function() use (&$view, &$user) {
 
         $page = new Views\Panel\BloggerDetails($view, $user);

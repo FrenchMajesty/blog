@@ -5,7 +5,7 @@ const pageLoaded = {
 
     'login': function () {
 
-        // Login form
+        // Handle login
         const form = document.getElementById('login-form')
               form.addEventListener('submit', handleLogin)
 
@@ -71,10 +71,59 @@ const pageLoaded = {
         // Password field activation
         const passwords = document.querySelectorAll('input[type="password"]')
               passwords.forEach(pwd => pwd.addEventListener('change', handleActivatePassword))
+    },
+
+
+    'myContacts': function () {
+
+        // Add social fields
+        const addButton = document.querySelector('button.btn-golden')
+              addButton.addEventListener('click', addNewSocials)
+
+        setInterval(() => {
+            // Set social fields
+            const socials = document.querySelectorAll('select')
+                  socials.forEach(selector => selector.addEventListener('change', setSocials))
+
+            // Remove social fields
+            const removeButtons = document.querySelectorAll('.btn-danger')
+                  removeButtons.forEach(button => button.addEventListener('click', removeSocials))
+        },100)
+
+        // Update social medias
+        const form = document.querySelector('form')
+              form.addEventListener('submit', handleUpdateSocials)
     }
 
 }
 
+function addNewSocials(e) {
+
+    const socialsEntry = $('#socialTemplate').html(),
+          numOfFields = document.querySelectorAll('select').length,
+          numOfSocials = document.querySelector('select').querySelectorAll('option').length - 1
+
+    if(numOfFields < numOfSocials)
+        $(socialsEntry).insertAfter('.row:last')
+    else
+        e.target.setAttribute('disabled', '') // Prevent from adding too much socials
+}
+
+function removeSocials(e) {
+    e.preventDefault()
+
+    const row = e.target.parentElement.parentElement.parentElement
+    $(row).remove()
+}
+
+function setSocials(e) {
+
+    let social = e.target.options[e.target.options.selectedIndex].label,
+        input = e.target.parentElement.parentElement.querySelector('input')
+
+    input.setAttribute('placeholder', `${social} username`)
+    input.setAttribute('name', `${social.toLowerCase()}-handle`)
+}
 
 function handleActivatePassword(e) {
     let pwds = document.querySelectorAll('input[type="password"]')
@@ -172,6 +221,31 @@ function handleUpdateDetails(e) {
 
         // Show message
         $('#details-message').html(response)
+    })
+}
+
+function handleUpdateSocials(e) {
+    e.preventDefault()
+
+    const socialSites = Array.from(e.target.querySelectorAll('select')).map((select) => select.value)
+
+    // Match social medias to handles
+    let socialMedias, result = {}
+
+    socialSites.forEach(socialMedia => {
+        result[socialMedia] = document.querySelector(`input[name="${socialMedia}-handle"]`).value
+    })
+    socialMedias = JSON.stringify(result)
+
+    let formData = new FormData(e.target)
+        formData.append('value', socialMedias)
+
+    submitAjaxTo('', formData)
+    .done(response => {
+        response = JSON.parse(response)
+
+        // Show message
+        $('#socials-message').html(response)
     })
 }
 

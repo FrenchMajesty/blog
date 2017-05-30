@@ -42,7 +42,7 @@ class User extends Model {
             $stmt->bindparam(":picture", $this->picture);
             $stmt->bindparam(":occupation", $this->occupation);
             $stmt->bindparam(":interests", implode(",", $this->interests));
-            $stmt->bindparam(":socials", json_encode($this->socialMedias));
+            $stmt->bindparam(":socials", $this->socialMedias);
             $stmt->bindparam(":biography", $this->biography);
 
             $stmt->execute();
@@ -163,7 +163,7 @@ class User extends Model {
         $this->occupation = $occupation;
     }
 
-    public function setSocials(array $ss) {
+    public function setSocials($ss) {
         $this->socialMedias = $ss;
     }
 
@@ -259,7 +259,7 @@ class User extends Model {
         $this->picture = $row["picture"];
         $this->occupation = $row["occupation"];
         $this->interests = explode(",", $row["interests"]);
-        $this->socialMedias = json_decode($row["socials"]);
+        $this->socialMedias = json_decode($row["socials"], true);
         $this->shortBio = $row["short_bio"];
         $this->biography = $row["biography"];
     }

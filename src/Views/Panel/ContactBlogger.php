@@ -17,6 +17,9 @@ class ContactBlogger extends Views {
     public function init() {
         $this->view->pagename = 'Where to Find Me';
 
+        $this->view->updateInfosToken = User::generateFormToken('updateSocials');
+
+        $this->view->socialMedia = $this->view->thisUser->getSocialMedias();
         $this->view->content = $this->view->render('/panel/contact-me.php');
     }
 

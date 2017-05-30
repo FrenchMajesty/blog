@@ -141,5 +141,27 @@ class UserController extends Controller {
         }
     }
 
+    public function updateSocials(): bool {
+
+        $socials = array_map('trim', json_decode($_POST["value"], true));
+
+
+        if(!$this->verifyFormToken('updateSocials'))
+            $this->errors[] = "Incorrect form submitted, please try again.";
+
+        if(empty($this->errors)) {
+
+            $this->user->setSocials($socials);
+            $this->user->update();
+
+            $this->saveToLog("Update Socials", "Social media accounts were updated.", $this->user->getID());
+            return true;
+
+        }else {
+
+            return false;
+        }
+    }
+
 }
 ?>
