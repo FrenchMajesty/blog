@@ -53,14 +53,6 @@
 					<div class="navbar-header">
 						<a class="navbar-brand" href="<?php echo $sitelink; ?>/"><img height="64" src="<?php echo $sitelink; ?>/static/images/logo-light.png" alt=""></a>
 					</div>
-					<div class="get-post-titles">
-						<button type="button" class="navbar-toggle push-navbar" data-navbar-type="default">
-							<i class="fa fa-bars"></i>
-						</button>
-					</div>
-					<a href="#" data-toggle="modal" data-target="#login-form" class="modal-form">
-						<i class="fa fa-user"></i>
-					</a>
 					<button type="button" class="navbar-toggle collapsed menu-collapse" data-toggle="collapse" data-target="#main-nav">
 						<span class="sr-only">Toggle navigation</span>
 						<i class="fa fa-plus"></i>
@@ -71,7 +63,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dashboard</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $sitelink; ?>/panel/">Homepage</a></li>
-									<li><a href="<?php echo $sitelink; ?>/panel/stats">Stats</a></li>
+									<!--li><a href="<?php echo $sitelink; ?>/panel/stats">Stats</a></li-->
 									<li><a href="<?php echo $sitelink; ?>/panel/logout">Log Out</a></li>
 								</ul>
 							</li>
