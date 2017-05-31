@@ -1,6 +1,8 @@
 <?php
 namespace Model;
 
+use PDO;
+
 use Core\Database;
 use Core\File;
 
@@ -83,6 +85,90 @@ class BlogPost extends Model {
         }
     }
 
+    public function loadAllPosts(): array {
+        $blogPosts = [];
+
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts ORDER BY id DESC");
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $blogs = $stmt->fetchAll();
+
+                foreach($blogs as $row) {
+                    $blogPosts[] = new BLogPost($this->_db, null, $row);
+                }
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return $blogPosts;
+    }
+
+    public function loadAllGallery(): array {
+        $blogPosts = [];
+
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts WHERE media_type='picture' ORDER BY id DESC");
+            $stmt->execute();
+
+            if($stmt->rowCount() > 0) {
+                $blogs = $stmt->fetchAll();
+
+                foreach($blogs as $row) {
+                    $blogPosts[] = new BLogPost($this->_db, null, $row);
+                }
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return $blogPosts;
+    }
+
+    public function loadLatest(int $limit = 5): array {
+        $latestPosts = [];
+
+        try {
+            $this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts ORDER BY id DESC LIMIT :limit");
+            $stmt->bindParam(":limit", $limit);
+
+            $stmt->execute();
+
+            $posts = $stmt->fetchAll();
+
+            foreach($posts as $row) {
+                $latestPosts[] = new BlogPost($this->_db, null, $row);
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return $latestPosts;
+    }
+
+    public function getOldestPost(): BlogPost {
+
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM blogposts ORDER BY date_posted ASC LIMIT 1");
+            $stmt->execute();
+
+            if($stmt->rowCount() == 1) {
+                $blogRow = $stmt->fetch();
+
+                return new BlogPost($this->_db, null, $blogRow);
+            }
+
+        }catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function differentImages(File $image): bool {
 
         $img = md5_file($_SERVER['DOCUMENT_ROOT'] . '/blog' . $this->media);
@@ -149,51 +235,6 @@ class BlogPost extends Model {
 
     public function setTags(array $tags) {
         $this->tags = array_map('trim', $tags);
-    }
-
-
-    public function loadAllPosts(): array {
-        $blogPosts = [];
-
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM blogposts ORDER BY id DESC");
-            $stmt->execute();
-
-            if($stmt->rowCount() > 0) {
-                $blogs = $stmt->fetchAll();
-
-                foreach($blogs as $row) {
-                    $blogPosts[] = new BLogPost($this->_db, null, $row);
-                }
-            }
-
-        }catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-
-        return $blogPosts;
-    }
-
-    public function loadAllGallery(): array {
-        $blogPosts = [];
-
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM blogposts WHERE media_type='picture' ORDER BY id DESC");
-            $stmt->execute();
-
-            if($stmt->rowCount() > 0) {
-                $blogs = $stmt->fetchAll();
-
-                foreach($blogs as $row) {
-                    $blogPosts[] = new BLogPost($this->_db, null, $row);
-                }
-            }
-
-        }catch(PDOException $e) {
-            echo $e->getMessage();
-        }
-
-        return $blogPosts;
     }
 
     private function loadRow($blog) {

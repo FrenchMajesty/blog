@@ -1,8 +1,18 @@
 Places where I have links and others that could cause trouble:
 
 
-Core\Template:27
+Core/Template.php :27
+
+Core/File.php : 34
+
+Core/File.php : 21
+
+Model/BlogPost.php ~ 88
 
 index.php : ~91
 
 index.php : ~303
+
+static/js/custom.js ~ 93
+
+views/panel/edit-post.php ~ 26
