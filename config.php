@@ -13,6 +13,8 @@ $dbConfig = [
     "dbname" => "blog",
 ];
 
+include('./src/Core/TwitterOAuth.php');
+
 spl_autoload_register(function ($classname) {
 	$classname = str_replace("\\","/", $classname);
 	$class = "src/" . $classname . ".php";
