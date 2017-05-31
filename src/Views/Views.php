@@ -20,7 +20,7 @@ class Views {
         // To be used in the views template
 
         $this->view->formatDate = function($date) {
-            return date("d M, Y", strtotime($date));
+            return date("M d, Y", strtotime($date));
             // format date..
         };
 
