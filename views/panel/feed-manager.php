@@ -28,20 +28,13 @@
 
                         <?php if(count($publications) > 0) {
                                 foreach($publications as $post) { ?>
-                        <input type="hidden" id="delete-token" value="<?php echo $deleteToken; ?>">
 						<div class="row post-medium nopacity" data-item="<?php echo $post->getID(); ?>">
 							<div class="col-md-5">
 
-                            <?php if($post->getType() == 'picture') {
-								        echo '<div class="row" style="height: 311px;"><img src="'. $sitelink . $post->getMedia().'" alt=""></div>';
+                                <div class="row" style="height: 311px;">
+                                <?php echo $formatMedia($sitelink, $post); ?>
+                                </div>
 
-                                    }else if($post->getType() == 'video') {
-                                        echo '<div class="row" style="height: 311px;">'. $post->getMedia() .'</div>';
-                                    }else {
-                                        echo '<div class="row" style="height: 311px;">
-                                                <img src="'.$sitelink.'/static/images/img-26.png" alt=""></div>';
-                                }
-                            ?>
 							</div>
 							<div class="col-md-7">
 								<div class="post-item" style="height: 311px;">
@@ -51,8 +44,8 @@
 												<a href="#"><?php echo $allCaps($post->getCategory()); ?></a>
 											</div>
 											<div class="post-item-social">
-												<a href="<?php echo $post->getID(); ?>"><i class="fa fa-pencil"></i></a>
-												<a href="#" data-id="<?php echo $post->getID(); ?>"><i class="fa fa-trash-o"></i></a>
+												<a href="<?php echo $post->getID(); ?>"><i class="fa fa-pencil"></i>e</a>
+												<a href="#" data-id="<?php echo $post->getID(); ?>"><i class="fa fa-trash-o"></i>d</a>
 											</div>
 										</div>
 										<div class="post-item-paragraph">
@@ -69,8 +62,9 @@
 								</div>
 							</div>
 						</div>
-                        <?php }
-                            } else { ?>
+                        <?php } ?>
+                        <input type="hidden" id="delete-token" value="<?php echo $deleteToken; ?>">
+                         <?php } else { ?>
                         <div class="row post-medium nopacity visible animated fadeInUp">
 							<div class="col-md-12">
 								<div class="post-item" style="height: 275px;">
