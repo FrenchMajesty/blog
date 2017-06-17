@@ -19,45 +19,49 @@ $view->sitelink = $sitelink;
 $view->blogger = $bloggerName;
 
 
-$router->get('/', function() use (&$view) {
+$router->get('/', function() use (&$view, &$user) {
 
-    $page = new Views\Home($view);
+    $page = new Views\Home($view, $user);
     $page->init();
 
     echo $view->render('layout.php');
 });
 
 
-$router->get('/gallery', function() use (&$view) {
+$router->get('/gallery', function() use (&$view, &$user) {
 
-    $page = new Views\Gallery($view);
+    $page = new Views\Gallery($view, $user);
     $page->init();
 
     echo $view->render('layout.php');
 });
 
 
-$router->get('/contact', function() use (&$view) {
+$router->get('/contact', function() use (&$view, &$user) {
 
-    $page = new Views\ContactMe($view);
+    $page = new Views\ContactMe($view, $user);
     $page->init();
 
     echo $view->render('layout.php');
 });
 
 
-$router->get('/about', function() use (&$view) {
+$router->get('/about', function() use (&$view, &$user) {
 
-    $page = new Views\AboutBlogger($view);
+    $user->load(1);
+
+    $page = new Views\AboutBlogger($view, $user);
     $page->init();
 
     echo $view->render('layout.php');
 });
 
 
-$router->get('/story', function() use (&$view) {
+$router->get('/story', function() use (&$view, &$user) {
 
-    $page = new Views\BloggerStory($view);
+    $user->load(1);
+
+    $page = new Views\BloggerStory($view, $user);
     $page->init();
 
     echo $view->render('layout.php');
@@ -124,18 +128,18 @@ $router->mount('/panel', function() use ($router, &$view, &$user, &$Database) {
     });
 
 
-    $router->get('/feed', function() use (&$view) {
+    $router->get('/feed', function() use (&$view, &$user) {
 
-       $page = new Views\Home($view);
+       $page = new Views\Home($view, $user);
         $page->init();
 
         echo $view->render('panel.php');
     });
 
 
-    $router->get('/gallery', function() use (&$view) {
+    $router->get('/gallery', function() use (&$view,  &$user) {
 
-        $page = new Views\Gallery($view);
+        $page = new Views\Gallery($view, $user);
         $page->init();
 
         echo $view->render('panel.php');

@@ -66,28 +66,18 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $sitelink; ?>/">Homepage</a></li>
-									<li><a href="<?php echo $sitelink; ?>/gallery">Feed</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Portofolio</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $sitelink; ?>/gallery">Gallery</a></li>
-									<li><a href="gallery-v3.html">Gallery v3</a></li>
 								</ul>
 							</li>
 							<li>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contact</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $sitelink; ?>/contact">Contact Me</a></li>
-									<li><a href="about-v2.html">-v2</a></li>
-									<li><a href="authors.html">Authors</a></li>
-									<li><a href="author-detail.html">Author Detail</a></li>
-									<li><a href="archive.html">Archive</a></li>
-									<li><a href="contact-v1.html">Contact v1</a></li>
-									<li><a href="contact-v2.html">-v2</a></li>
-									<li><a href="404.html">Not Found</a></li>
-									<li><a href="newsletter.html" target="_blank">Newsletter</a></li>
 								</ul>
 							</li>
 							<li>

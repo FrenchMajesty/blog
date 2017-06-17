@@ -17,7 +17,7 @@
 							<div class="container-medium">
 								<div class="row post-items">
 									<div class="post-item-banner">
-										<img src="<?php echo $sitelink; ?>/static/images/img-16.png" alt="">
+										<?php echo $formatMedia($sitelink, $blog, true); ?>
 									</div>
 									<div class="col-md-12">
 										<div class="post-item">

@@ -5,12 +5,15 @@ use Core\Template;
 use Core\Database;
 
 use Model\BlogPost;
+use Model\User;
 
 class Home extends Views {
 
-    public function __construct(Template &$viewTemplate) {
+    public function __construct(Template &$viewTemplate, User &$user) {
 
         parent::__construct($viewTemplate);
+
+        $this->view->user = $user;
     }
 
     public function init() {
