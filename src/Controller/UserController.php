@@ -59,7 +59,7 @@ class UserController extends Controller {
         if(!$user->login($email, $password)) {
             $this->errors[] = "Incorrect email or password.";
 
-            $user->increaseFaildeAttempts($email);
+           // $user->increaseFailedAttempts($email);
         }
 
         if(empty($this->errors))

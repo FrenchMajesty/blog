@@ -27,7 +27,7 @@ class BlogPostController extends Controller {
         $image = isset($_FILES["image"]) ?
                  new File($_FILES["image"]) : NULL;
 
-        $embed = $_POST["embed"];
+        $embed = isset($_POST["embed"]) ? $_POST["embed"] : NULL;
 
         if(strlen($name) > 50)
             $this->errors[] = "Title is too long.";
