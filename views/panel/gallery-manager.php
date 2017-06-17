@@ -23,8 +23,8 @@
 									<h4><a href="#"><?php echo $allCaps($image->getName()); ?></a></h4>
 								</div>
 								<div class="gi-bottom">
-                                    <a href="<?php echo $image->getID(); ?>"><i class="fa fa-pencil"></i></a>
-								    <a href="#" data-id="<?php echo $image->getID(); ?>"><i class="fa fa-trash-o"></i></a>
+                                    <a href="<?php echo $sitelink . '/panel/feed/' . $image->getID(); ?>"><i class="fa fa-pencil"></i>e</a>
+								    <a href="#" data-id="<?php echo $image->getID(); ?>"><i class="fa fa-trash-o"></i>d</a>
 								</div>
 							</div>
 						</div>
